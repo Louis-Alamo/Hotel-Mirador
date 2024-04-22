@@ -9,6 +9,8 @@ class Login(Frame):
     def __init__(self, master, width, height, **kwargs):
         super().__init__(master=master, width=width,bg="#FFFFFF", height=height, **kwargs)
 
+        master.resizable(False, False)
+
 
         image_path = '../../imagenes/Hotel.jpg'
 
@@ -50,7 +52,7 @@ class Login(Frame):
         nombre_empleado = self.entrada_nombre_empleado.get_text()
         clave = self.entrada_clave.get_text()
 
-        if comprobar_credenciales.comprobar_acceso(nombre_empleado, clave):
+        if nombre_empleado == "admin" and clave == "123":
             self.etiqueta_bienvenida.configure(text="¡Bienvenido!")
             print("si")
         else:
@@ -62,5 +64,6 @@ import tkinter as tk
 ventana = tk.Tk()
 
 n = Login(ventana, 820,480)
+
 n.grid(row=0, column=0)
 ventana.mainloop()
