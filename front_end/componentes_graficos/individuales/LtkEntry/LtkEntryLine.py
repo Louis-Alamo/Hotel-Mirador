@@ -44,7 +44,7 @@ class LtkEntryLine(CTkEntry):
             fg_color="#FFFFFF",
             border_color="#5BACB5",
             text_color="#000000",
-            font=("Poppins", 14, "bold"),
+            font=("Poppins", 12),
             corner_radius=5,
             placeholder_text=texto,
             cursor="xterm",

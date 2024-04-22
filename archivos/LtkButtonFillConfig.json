@@ -1,0 +1,11 @@
+{
+    "LtkButtonFill": {
+        "bg": "#FFFFFF",
+        "fg": "#abcdef",
+        "activebg": "#654321",
+        "activefg": "#fedcba",
+        "relief": "flat",
+        "borderwidth": 0,
+        "font": "Helvetica"
+    }
+}

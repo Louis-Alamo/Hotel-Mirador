@@ -23,7 +23,7 @@ class LtkButtonFill(CTkButton):
         Habilita el botón y cambia su apariencia a un estado normal.
     """
 
-    def __init__(self, master, nombre="LtkButtonFill", command=None, **kwargs):
+    def __init__(self, master, nombre="LtkButtonFill", funcion=None, **kwargs):
         """
         Constructor de la clase LtkButtonFill.
 
@@ -51,7 +51,7 @@ class LtkButtonFill(CTkButton):
             corner_radius=5,
             border_spacing=8,
             cursor="hand2",
-            command=command
+            command=funcion
         )
 
     def disable(self):
