@@ -53,12 +53,10 @@ class Login(Frame):
         nombre_empleado = self.entrada_nombre_empleado.get_text()
         clave = self.entrada_clave.get_text()
 
-        if nombre_empleado == "admin" and clave == "123":
-            self.etiqueta_bienvenida.configure(text="¡Bienvenido!")
-            print("si")
+        if comprobar_credenciales.comprobar_acceso(nombre_empleado, clave):
+            print("Acceso concedido")
         else:
-            self.etiqueta_bienvenida.configure(text="¡Credenciales incorrectas!")
-            print("no")
+            print("Acceso denegado")
 
 import tkinter as tk
 
