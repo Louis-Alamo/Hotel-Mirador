@@ -9,6 +9,7 @@ class Login(Frame):
     def __init__(self, master, width, height, **kwargs):
         super().__init__(master=master, width=width,bg="#FFFFFF", height=height, **kwargs)
 
+        #Se agrego para que un pendejo no modifique el tamaño de ventana
         master.resizable(False, False)
 
 
