@@ -2,6 +2,7 @@ from tkinter import *
 from customtkinter import CTkLabel
 from front_end.componentes_graficos.individuales.LtkButton.LtkButtonFill import LtkButtonFill
 from front_end.componentes_graficos.individuales.LtkEntry.LtkEntryLine import LtkEntryLine
+from front_end.ventanas.FrameMenuPrincipal import FrameMenuPrincipal
 from util import ProcesarImagenes, comprobar_credenciales
 
 class Login(Frame):
@@ -12,7 +13,7 @@ class Login(Frame):
         #Se agrego para que un pendejo no modifique el tamaño de ventana
         master.resizable(False, False)
 
-
+        self.master = master
         image_path = '../../imagenes/Hotel.jpg'
 
         # Guardar la imagen como un atributo de la clase
@@ -54,15 +55,29 @@ class Login(Frame):
         clave = self.entrada_clave.get_text()
 
         if comprobar_credenciales.comprobar_acceso(nombre_empleado, clave):
-            print("Acceso concedido")
+            self.crear_ventana_principal()
         else:
             print("Acceso denegado")
 
-import tkinter as tk
 
-ventana = tk.Tk()
+    def crear_ventana_principal(self):
+        """
+        Crea la ventana principal del sistema.
+        """
 
+        ventana = Tk()
+        ventana.geometry("1200x650")
+        ventana.title("Sistema de Gestión de Hotel")
+        ventana.resizable(False, False)
+        ventana.config(bg="#FFFFFF")
+        frame_principal = FrameMenuPrincipal(ventana)
+        frame_principal.pack()
+        self.master.destroy()
+        ventana.mainloop()
+
+
+
+ventana = Tk()
 n = Login(ventana, 820,480)
-
 n.grid(row=0, column=0)
 ventana.mainloop()

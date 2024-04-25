@@ -108,10 +108,3 @@ class FrameMenuPrincipal(Frame):
     def menu_reportes(self):
         pass
 
-
-import tkinter as tk
-ventana = tk.Tk()
-frame = FrameMenuPrincipal(ventana)
-frame.pack()
-ventana.mainloop()
-
