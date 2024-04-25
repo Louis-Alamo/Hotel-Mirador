@@ -172,7 +172,7 @@ class FrameEmpleados(Frame):
 
     def borrar_empleado(self):
         clave_empleado = self.tabla.obtener_datos_seleccionados()[0][0]
-        self.eliminar_empleado.eliminar_registro_especifico(clave_empleado, 'Empleado', 'numero_habitacion')
+        self.eliminar_empleado.eliminar_registro_especifico(clave_empleado, 'Empleado', 'clave_empleado')
         self.actualizar_tabla()
 
 

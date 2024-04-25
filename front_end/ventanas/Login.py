@@ -65,15 +65,11 @@ class Login(Frame):
         Crea la ventana principal del sistema.
         """
 
-        ventana = Tk()
-        ventana.geometry("1200x650")
-        ventana.title("Sistema de Gestión de Hotel")
-        ventana.resizable(False, False)
-        ventana.config(bg="#FFFFFF")
-        frame_principal = FrameMenuPrincipal(ventana)
+
+        frame_principal = FrameMenuPrincipal(self.master, self)
         frame_principal.pack()
-        self.master.destroy()
-        ventana.mainloop()
+
+
 
 
 

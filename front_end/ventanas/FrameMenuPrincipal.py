@@ -13,7 +13,7 @@ from util.ProcesarImagenes import rescale_image_ctk
 
 class FrameMenuPrincipal(Frame):
 
-    def __init__(self, master, **kwargs):
+    def __init__(self, master, ventana_anterior, **kwargs):
 
         super().__init__(master, **kwargs)
 
@@ -21,6 +21,8 @@ class FrameMenuPrincipal(Frame):
         master.title("Sistema de Gestión de Hotel")
         master.resizable(False, False)
         master.config(bg="#FFFFFF")
+
+        ventana_anterior.destroy()
 
         self.master = master
 
