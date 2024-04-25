@@ -2,6 +2,7 @@ from customtkinter import  CTkFrame
 from util.ProcesarImagenes import rescale_image
 from tkinter import Label
 import time
+import os
 
 class LtkFecha(CTkFrame):
 
@@ -11,11 +12,15 @@ class LtkFecha(CTkFrame):
 
         self.configure(fg_color="#FFFFFF")
 
-        self.imagen = rescale_image("../../../imagenes/iconos/calendario.png", 50, 50)  # Reemplaza con la ruta a tu imagen
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        path = os.path.join(dir_path, '../../../imagenes/iconos/calendario.png')
+
+
+        self.imagen = rescale_image(path, 30, 30)  # Reemplaza con la ruta a tu imagen
         self.etiqueta_fecha = Label(self, bg="#FFFFFF", image=self.imagen)
         self.etiqueta_fecha.pack(padx=10, side="left")
 
-        self.etiqueta_fecha_texto = Label(self, text="", font=("Poppins", 14, "bold"), fg="#000000", bg="#FFFFFF", )
+        self.etiqueta_fecha_texto = Label(self, text="", font=("Poppins", 12, "bold"), fg="#000000", bg="#FFFFFF", )
         self.etiqueta_fecha_texto.pack(padx=10, side="right")
 
         # Iniciar la actualización de la fecha
