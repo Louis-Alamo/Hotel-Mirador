@@ -9,6 +9,7 @@ from front_end.componentes_graficos.individuales.LtkEntry.LtkEntryLine import Lt
 from front_end.componentes_graficos.individuales.LtkButton.LtkButtonFill import LtkButtonFill
 from front_end.componentes_graficos.individuales.LtkButton.LtkButtonImage import LtkButtonImage
 from util.TraducirValores import convertir_hora_a_cadena
+import os
 
 
 class FrameEmpleados(Frame):
@@ -17,6 +18,9 @@ class FrameEmpleados(Frame):
 
 
         super().__init__(master, **kwargs)
+
+        dir_path = os.path.dirname(os.path.abspath(__file__))
+        print("Path de login: ", dir_path)
 
 
         self.config(bg='white', width=900, height=550)

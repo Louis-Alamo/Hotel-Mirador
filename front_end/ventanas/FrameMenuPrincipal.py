@@ -1,5 +1,5 @@
 from typing import Union
-
+import os
 from customtkinter import CTkFrame, CTkLabel
 from tkinter import Frame
 from front_end.componentes_graficos.individuales.LtkButton.LtkImageTextButton import LtkImageTextButton
@@ -17,6 +17,7 @@ class FrameMenuPrincipal(Frame):
 
         super().__init__(master, **kwargs)
 
+
         master.geometry("1200x650")
         master.title("Sistema de Gestión de Hotel")
         master.resizable(False, False)
@@ -26,7 +27,7 @@ class FrameMenuPrincipal(Frame):
 
         self.master = master
 
-
+        self.ruta_ventana = os.path.dirname(os.path.abspath(__file__))
 
         self.frameBarraIzquierda = CTkFrame(master, fg_color="#DCF0F1", width=210, height=650)
         self.frameBarraIzquierda.place(x=0, y=0)
@@ -34,7 +35,8 @@ class FrameMenuPrincipal(Frame):
         self.frameBarraSuperior = CTkFrame(master, fg_color="transparent",width=990, height=80)
         self.frameBarraSuperior.place(x=210, y=0)
 
-        self.imagen_titulo_hotel = rescale_image_ctk("../../imagenes/titulo-hotel.png", 500, 200)
+        self.ruta_imagen = os.path.join(self.ruta_ventana, "../../imagenes/Hotel.jpg")
+        self.imagen_titulo_hotel = rescale_image_ctk(self.ruta_imagen, 500, 200)
         self.etiqueta_titulo_hotel = CTkLabel(self.frameBarraIzquierda, image=self.imagen_titulo_hotel)
         self.etiqueta_titulo_hotel.place(x=20, y=20)
 
@@ -45,30 +47,36 @@ class FrameMenuPrincipal(Frame):
     def crear_botones_menu_lateral_izquierdo(self):
         #Cargar las imagenes correspondientes
 
-        self.icono_principal = rescale_image_ctk("../../imagenes/iconos/icono-principal.png", 30,30)
-        self.icono_habitaciones = rescale_image_ctk("../../imagenes/iconos/icono-habitacion.png", 30,30)
-        self.icono_reserva = rescale_image_ctk("../../imagenes/iconos/icono-reserva.png",30,30)
-        self.icono_servicios = rescale_image_ctk("../../imagenes/iconos/icono-servicios.png",30,30)
-        self.icono_cliente = rescale_image_ctk("../../imagenes/iconos/icono-cliente.png",30,30)
-        self.icono_empleados = rescale_image_ctk("../../imagenes/iconos/icono-empleados.png", 30,30)
+        self.icono_principal = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-principal.png"), 30,30)
+        self.icono_habitaciones = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-habitacion.png"), 30,30)
+        self.icono_reserva = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-reserva.png"),30,30)
+        self.icono_servicios = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-servicios.png"),30,30)
+        self.icono_cliente = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-cliente.png"),30,30)
+        self.icono_empleados = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-empleados.png"), 30,30)
 
 
         self.boton_principal = LtkImageTextButton(self.frameBarraIzquierda,self.icono_principal, funcion=lambda: self.menu_principal(), texto="Principal")
+        self.boton_principal.configure(width=120)
         self.boton_principal.place(x=40,y=111)
 
         self.boton_habitaciones = LtkImageTextButton(self.frameBarraIzquierda,self.icono_habitaciones, funcion=lambda: self.menu_habitaciones(), texto="Habitaciones")
+        self.boton_habitaciones.configure(width=120)
         self.boton_habitaciones.place(x=40,y=171)
 
         self.boton_reserva = LtkImageTextButton(self.frameBarraIzquierda,self.icono_reserva, funcion=lambda: self.menu_reserva(), texto="Reserva")
+        self.boton_reserva.configure(width=120)
         self.boton_reserva.place(x=40,y=231)
 
         self.boton_servicios = LtkImageTextButton(self.frameBarraIzquierda,self.icono_servicios, funcion=lambda: self.menu_servicios(), texto="Servicios")
+        self.boton_servicios.configure(width=120)
         self.boton_servicios.place(x=40,y=291)
 
         self.boton_cliente = LtkImageTextButton(self.frameBarraIzquierda,self.icono_cliente, funcion=lambda: self.menu_cliente(), texto="Cliente")
+        self.boton_cliente.configure(width=120)
         self.boton_cliente.place(x=40,y=351)
 
         self.boton_empleados = LtkImageTextButton(self.frameBarraIzquierda,self.icono_empleados, funcion=lambda: self.menu_empleados(), texto="Empleados")
+        self.boton_empleados.configure(width=120)
         self.boton_empleados.place(x=40,y=411)
 
 

@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from customtkinter import CTkLabel
 from front_end.componentes_graficos.individuales.LtkButton.LtkButtonFill import LtkButtonFill
@@ -13,11 +14,14 @@ class Login(Frame):
         #Se agrego para que un pendejo no modifique el tamaño de ventana
         master.resizable(False, False)
 
+        ruta_ventana = os.path.dirname(os.path.abspath(__file__))
+
         self.master = master
         image_path = '../../imagenes/Hotel.jpg'
 
         # Guardar la imagen como un atributo de la clase
-        self.imagen = ProcesarImagenes.rescale_image(image_path=image_path, new_width=400, new_height=480)
+        ruta_imagen = os.path.join(ruta_ventana, image_path)
+        self.imagen = ProcesarImagenes.rescale_image(image_path=ruta_imagen, new_width=400, new_height=480)
 
         self.etiqueta_imagen = Label(self, image=self.imagen)
         self.etiqueta_imagen.place(x=0, y=0)
@@ -72,8 +76,3 @@ class Login(Frame):
 
 
 
-
-ventana = Tk()
-n = Login(ventana, 820,480)
-n.grid(row=0, column=0)
-ventana.mainloop()
