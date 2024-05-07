@@ -13,7 +13,7 @@ class LtkFecha(CTkFrame):
         self.configure(fg_color="#FFFFFF")
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        path = os.path.join(dir_path, '../../../imagenes/iconos/calendario.png')
+        path = os.path.join(dir_path, '..\\imagenes\\iconos\\calendario.png')
 
 
         self.imagen = rescale_image(path, 30, 30)  # Reemplaza con la ruta a tu imagen

@@ -13,7 +13,7 @@ class LtkReloj(CTkFrame):
         self.configure(fg_color="#FFFFFF")
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        path = os.path.join(dir_path, '../../../imagenes/iconos/reloj.png')
+        path = os.path.join(dir_path, '..\\imagenes\\iconos\\reloj.png')
 
         self.imagen = rescale_image(path, 30, 30)
         self.etiqueta_reloj = Label(self,bg="#FFFFFF", image=self.imagen )

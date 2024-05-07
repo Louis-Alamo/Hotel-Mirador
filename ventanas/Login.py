@@ -72,6 +72,9 @@ class Login(Frame):
         """
         Crea la ventana principal del sistema.
         """
+        self.ventana.withdraw()
+        self.obj = FrameMenuPrincipal()
+
 
 
 

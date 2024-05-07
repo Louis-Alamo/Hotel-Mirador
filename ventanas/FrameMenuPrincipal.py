@@ -1,57 +1,57 @@
 import os
-from customtkinter import CTkFrame, CTkLabel
+from customtkinter import *
 from tkinter import Frame
 from componentes_graficos.LtkButton import LtkImageTextButton
 from componentes_graficos.LtkFecha import LtkFecha
 from componentes_graficos.LtkReloj import LtkReloj
+
+
+
 from ventanas.FrameEmpleados import FrameEmpleados
 from ventanas.FrameHabitaciones import FrameHabitacion
 from ventanas.FrameServiciosAdicionales import FrameServiciosAdicionales
 
 from util.ProcesarImagenes import rescale_image_ctk
 
-class FrameMenuPrincipal(Frame):
+class FrameMenuPrincipal():
 
-    def __init__(self, master, ventana_anterior, **kwargs):
+    def __init__(self):
 
-        super().__init__(master, **kwargs)
+        self.ventana = CTkToplevel()
 
-
-        master.geometry("1200x650")
-        master.title("Sistema de Gestión de Hotel")
-        master.resizable(False, False)
-        master.config(bg="#FFFFFF")
-
-        ventana_anterior.destroy()
-
-        self.master = master
+        self.ventana.geometry("1200x650")
+        self.ventana.title("Sistema de Gestión de Hotel")
+        self.ventana.resizable(False, False)
+        self.ventana.config(bg="#FFFFFF")
 
         self.ruta_ventana = os.path.dirname(os.path.abspath(__file__))
 
-        self.frameBarraIzquierda = CTkFrame(master, fg_color="#DCF0F1", width=210, height=650)
+        print(self.ruta_ventana)
+
+        self.frameBarraIzquierda = CTkFrame(self.ventana, fg_color="#DCF0F1", width=210, height=650)
         self.frameBarraIzquierda.place(x=0, y=0)
 
-        self.frameBarraSuperior = CTkFrame(master, fg_color="transparent",width=990, height=80)
+        self.frameBarraSuperior = CTkFrame(self.ventana, fg_color="transparent",width=990, height=80)
         self.frameBarraSuperior.place(x=210, y=0)
 
-        self.ruta_imagen = os.path.join(self.ruta_ventana, "../../imagenes/Hotel.jpg")
-        self.imagen_titulo_hotel = rescale_image_ctk(self.ruta_imagen, 500, 200)
-        self.etiqueta_titulo_hotel = CTkLabel(self.frameBarraIzquierda, image=self.imagen_titulo_hotel)
+        self.etiqueta_titulo_hotel = CTkLabel(self.ventana, text="Hotel mirador", font=("Poppins", 15, "bold"))
         self.etiqueta_titulo_hotel.place(x=20, y=20)
 
         self.crear_botones_menu_lateral_izquierdo()
         self.cargar_menu_superior()
 
+        self.ventana.mainloop()
+
 
     def crear_botones_menu_lateral_izquierdo(self):
         #Cargar las imagenes correspondientes
 
-        self.icono_principal = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-principal.png"), 30,30)
-        self.icono_habitaciones = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-habitacion.png"), 30,30)
-        self.icono_reserva = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-reserva.png"),30,30)
-        self.icono_servicios = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-servicios.png"),30,30)
-        self.icono_cliente = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-cliente.png"),30,30)
-        self.icono_empleados = rescale_image_ctk(os.path.join(self.ruta_ventana,"../../imagenes/iconos/icono-empleados.png"), 30,30)
+        self.icono_principal = rescale_image_ctk(os.path.join(self.ruta_ventana,"..\\imagenes/iconos\\icono-principal.png"), 30,30)
+        self.icono_habitaciones = rescale_image_ctk(os.path.join(self.ruta_ventana,"..\\imagenes/iconos\\icono-habitacion.png"), 30,30)
+        self.icono_reserva = rescale_image_ctk(os.path.join(self.ruta_ventana,"..\\imagenes\\iconos\\icono-reserva.png"),30,30)
+        self.icono_servicios = rescale_image_ctk(os.path.join(self.ruta_ventana,"..\\imagenes\\iconos\\icono-servicios.png"),30,30)
+        self.icono_cliente = rescale_image_ctk(os.path.join(self.ruta_ventana,"..\\imagenes\\iconos\\icono-cliente.png"),30,30)
+        self.icono_empleados = rescale_image_ctk(os.path.join(self.ruta_ventana,"..\\imagenes\\iconos\\icono-empleados.png"), 30,30)
 
 
         self.boton_principal = LtkImageTextButton(self.frameBarraIzquierda,self.icono_principal, funcion=lambda: self.menu_principal(), texto="Principal")
@@ -93,7 +93,7 @@ class FrameMenuPrincipal(Frame):
         pass
 
     def menu_habitaciones(self):
-        self.frame_informacion_relevante = FrameHabitacion(self.master, bg="white", width=990, height=570)
+        self.frame_informacion_relevante = FrameHabitacion(self.ventana, bg="white", width=990, height=570)
         self.frame_informacion_relevante.pack_propagate(False)
         self.frame_informacion_relevante.place(x=240, y=80)
 
@@ -101,7 +101,7 @@ class FrameMenuPrincipal(Frame):
         pass
 
     def menu_servicios(self):
-        self.frame_informacion_relevante = FrameServiciosAdicionales(self.master, bg="white", width=990, height=570)
+        self.frame_informacion_relevante = FrameServiciosAdicionales(self.ventana, bg="white", width=990, height=570)
         self.frame_informacion_relevante.pack_propagate(False)
         self.frame_informacion_relevante.place(x=240, y=80)
 
@@ -109,7 +109,7 @@ class FrameMenuPrincipal(Frame):
         pass
 
     def menu_empleados(self):
-        self.frame_informacion_relevante = FrameEmpleados(self.master, bg="white", width=990, height=570)
+        self.frame_informacion_relevante = FrameEmpleados(self.ventana, bg="white", width=990, height=570)
         self.frame_informacion_relevante.pack_propagate(False)
         self.frame_informacion_relevante.place(x=240, y=80)
 
