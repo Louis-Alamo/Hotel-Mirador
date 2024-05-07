@@ -1,7 +1,7 @@
 from customtkinter import *
-from componentes_graficos import LtkButtonFill
-from componentes_graficos import LtkEntryLine
-from componentes_graficos import LtkComboBoxLine
+from componentes_graficos.LtkButton import LtkButtonFill
+from componentes_graficos.LtkEntry import LtkEntryLine
+from componentes_graficos.LtkComboBox import LtkComboBoxLine
 class RegistrarEmpleado:
 
     def __init__(self):
@@ -31,19 +31,19 @@ class RegistrarEmpleado:
         self.etiqeuta_nombre_completo = CTkLabel(self.frame_datos_personales, text="Nombre Completo: ",  font=("Poppins", 12, "bold"))
         self.etiqeuta_nombre_completo.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
-        self.campo_nombre_completo = LtkEntryLine(self.frame_datos_personales, placeholder="Nombre Completo")
+        self.campo_nombre_completo = LtkEntryLine(self.frame_datos_personales, texto="Nombre Completo")
         self.campo_nombre_completo.grid(row=1, column=1, padx=10, pady=10, columnspan=2, sticky="ew")
 
         self.etiqueta_apellido_paterno = CTkLabel(self.frame_datos_personales, text="Apellido Paterno: ", font=("Poppins", 12, "bold"))
         self.etiqueta_apellido_paterno.grid(row=2, column=0, padx=10, pady=10, sticky="w")
 
-        self.campo_apellido_paterno = LtkEntryLine(self.frame_datos_personales, placeholder="Apellido Paterno")
+        self.campo_apellido_paterno = LtkEntryLine(self.frame_datos_personales, texto="Apellido Paterno")
         self.campo_apellido_paterno.grid(row=2, column=1, padx=10, pady=10, columnspan=2, sticky="ew")
 
         self.etiqueta_apellido_materno = CTkLabel(self.frame_datos_personales, text="Apellido Materno: ", font=("Poppins", 12, "bold"))
         self.etiqueta_apellido_materno.grid(row=3, column=0, padx=10, pady=10, sticky="w")
 
-        self.campo_apellido_materno = LtkEntryLine(self.frame_datos_personales, placeholder="Apellido Materno")
+        self.campo_apellido_materno = LtkEntryLine(self.frame_datos_personales, texto="Apellido Materno")
         self.campo_apellido_materno.grid(row=3, column=1, padx=10, pady=10, columnspan=2, sticky="ew")
 
 
@@ -58,10 +58,9 @@ class RegistrarEmpleado:
         self.etiqueta_clave_empleado = CTkLabel(self.frame_datos_negocio, text="Clave Empleado: ", font=("Poppins", 12, "bold"))
         self.etiqueta_clave_empleado.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
-        self.campo_clave_empleado = LtkEntryLine(self.frame_datos_negocio, placeholder="Clave Empleado")
+        self.campo_clave_empleado = LtkEntryLine(self.frame_datos_negocio, texto="Clave Empleado")
         self.campo_clave_empleado.disable()
         self.campo_clave_empleado.grid(row=1, column=1, padx=10, pady=10, columnspan=2, sticky="ew")
-
 
         self.etiqueta_cargo_empleado = CTkLabel(self.frame_datos_negocio, text="Clave Empleado: ", font=("Poppins", 12, "bold"))
         self.etiqueta_cargo_empleado.grid(row=2, column=0, padx=10, pady=10, sticky="w")
@@ -86,26 +85,15 @@ class RegistrarEmpleado:
         self.frame_botones.grid(row=2, column=0, padx=10, pady=10, columnspan=2, sticky="e")
 
 
-        self.boton_cancelar = LtkButtonFill(self.frame_botones,funcion=lambda: self.aceptar(), nombre_boton="Cancelar")
+        self.boton_cancelar = LtkButtonFill(self.frame_botones, nombre="Cancelar", funcion=lambda: self.aceptar())
         self.boton_cancelar.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
-        self.boton_aceptar = LtkButtonFill(self.frame_botones,funcion=lambda: self.aceptar(), nombre_boton="Aceptar")
+        self.boton_aceptar = LtkButtonFill(self.frame_botones, nombre="Aceptar", funcion=lambda: self.aceptar())
         self.boton_aceptar.grid(row=0, column=2, padx=10, pady=10, sticky="ew")
 
 
     def aceptar(self):
         pass
-
-
-
-
-
-
-
-
-
-
-
 
 
 
