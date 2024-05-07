@@ -3,10 +3,9 @@ from SQL.ConsultarDatosSQL import ConsultarDatosSQL
 from SQL.RegistrarDatos import RegistrarDatos
 from SQL.EliminarDatos import EliminarDatos
 from SQL.ActualizarDatos import ActualizarDatos
-from front_end.componentes_graficos.compuestos.TreeviewTable import TreeviewTable
-from front_end.componentes_graficos.individuales.LtkEntry.LtkEntryLine import LtkEntryLine
-from front_end.componentes_graficos.individuales.LtkButton.LtkButtonFill import LtkButtonFill
-from front_end.componentes_graficos.individuales.LtkButton.LtkButtonImage import LtkButtonImage
+from componentes_graficos.TreeviewTable import TreeviewTable
+from componentes_graficos.LtkEntry import LtkEntryLine
+from componentes_graficos.LtkButton import LtkButtonFill
 from util.TraducirValores import convertir_hora_a_cadena
 
 

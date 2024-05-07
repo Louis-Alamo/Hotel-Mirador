@@ -1,7 +1,7 @@
 from customtkinter import *
-from front_end.componentes_graficos.LtkButton import LtkButtonFill
-from front_end.componentes_graficos.LtkEntry import LtkEntryLine
-from front_end.componentes_graficos.LtkComboBox import LtkComboBoxLine
+from componentes_graficos import LtkButtonFill
+from componentes_graficos import LtkEntryLine
+from componentes_graficos import LtkComboBoxLine
 class RegistrarEmpleado:
 
     def __init__(self):

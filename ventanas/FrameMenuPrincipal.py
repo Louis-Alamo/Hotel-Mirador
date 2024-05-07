@@ -1,13 +1,12 @@
-from typing import Union
 import os
 from customtkinter import CTkFrame, CTkLabel
 from tkinter import Frame
-from front_end.componentes_graficos.individuales.LtkButton.LtkImageTextButton import LtkImageTextButton
-from front_end.componentes_graficos.compuestos.LtkFecha import LtkFecha
-from front_end.componentes_graficos.compuestos.LtkReloj import LtkReloj
-from front_end.ventanas.FrameEmpleados import FrameEmpleados
-from front_end.ventanas.FrameHabitaciones import FrameHabitacion
-from front_end.ventanas.FrameServiciosAdicionales import FrameServiciosAdicionales
+from componentes_graficos.LtkButton import LtkImageTextButton
+from componentes_graficos.LtkFecha import LtkFecha
+from componentes_graficos.LtkReloj import LtkReloj
+from ventanas.FrameEmpleados import FrameEmpleados
+from ventanas.FrameHabitaciones import FrameHabitacion
+from ventanas.FrameServiciosAdicionales import FrameServiciosAdicionales
 
 from util.ProcesarImagenes import rescale_image_ctk
 
