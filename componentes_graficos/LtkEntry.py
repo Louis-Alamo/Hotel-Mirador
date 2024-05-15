@@ -145,7 +145,8 @@ class LtkEntryLine(CTkEntry):
             fg_color="#FFFFFF",
             text_color="#BDE1E4",
             border_color="#DCF0F1",
-            cursor="arrow"
+            cursor="arrow",
+            font = ("Poppins", 12, "bold"),
         )
 
     def enable(self):

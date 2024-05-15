@@ -10,6 +10,8 @@ from componentes_graficos.LtkReloj import LtkReloj
 from ventanas.FrameEmpleados import FrameEmpleados
 from ventanas.FrameHabitaciones import FrameHabitacion
 from ventanas.FrameServiciosAdicionales import FrameServiciosAdicionales
+from ventanas.FrameClientes import FrameClientes
+from ventanas.FrameReservas import FrameReservas    
 
 from util.ProcesarImagenes import rescale_image_ctk
 
@@ -31,11 +33,11 @@ class FrameMenuPrincipal():
         self.frameBarraIzquierda = CTkFrame(self.ventana, fg_color="#DCF0F1", width=210, height=650)
         self.frameBarraIzquierda.place(x=0, y=0)
 
-        self.frameBarraSuperior = CTkFrame(self.ventana, fg_color="transparent",width=990, height=80)
+        self.frameBarraSuperior = CTkFrame(self.ventana, fg_color="#FFFFFF",width=990, height=80)
         self.frameBarraSuperior.place(x=210, y=0)
 
-        self.etiqueta_titulo_hotel = CTkLabel(self.ventana, text="Hotel mirador", font=("Poppins", 15, "bold"))
-        self.etiqueta_titulo_hotel.place(x=20, y=20)
+        self.etiqueta_titulo_hotel = CTkLabel(self.ventana, text="Hotel mirador",fg_color="#DCF0F1", font=("Poppins", 20, "bold"))
+        self.etiqueta_titulo_hotel.place(x=40, y=20)
 
         self.crear_botones_menu_lateral_izquierdo()
         self.cargar_menu_superior()
@@ -98,7 +100,9 @@ class FrameMenuPrincipal():
         self.frame_informacion_relevante.place(x=240, y=80)
 
     def menu_reserva(self):
-        pass
+        self.frame_informacion_relevante = FrameReservas(self.ventana, bg="white", width=990, height=570)
+        self.frame_informacion_relevante.pack_propagate(False)
+        self.frame_informacion_relevante.place(x=240, y=80)
 
     def menu_servicios(self):
         self.frame_informacion_relevante = FrameServiciosAdicionales(self.ventana, bg="white", width=990, height=570)
@@ -106,7 +110,9 @@ class FrameMenuPrincipal():
         self.frame_informacion_relevante.place(x=240, y=80)
 
     def menu_cliente(self):
-        pass
+        self.frame_informacion_relevante = FrameClientes(self.ventana, bg="white", width=990, height=570)
+        self.frame_informacion_relevante.pack_propagate(False)
+        self.frame_informacion_relevante.place(x=240, y=80)
 
     def menu_empleados(self):
         self.frame_informacion_relevante = FrameEmpleados(self.ventana, bg="white", width=990, height=570)

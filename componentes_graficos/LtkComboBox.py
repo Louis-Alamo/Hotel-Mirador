@@ -64,7 +64,7 @@ class LtkComboBoxLine(CTkComboBox):
             dropdown_text_color="#23442e",
             dropdown_hover_color="#3B8752",
             border_width=2,
-            button_color="#4A9D63",
+            button_color="#40909A",
             button_hover_color="#3B8752",
             font=("Poppins", 12, "bold"),
         )

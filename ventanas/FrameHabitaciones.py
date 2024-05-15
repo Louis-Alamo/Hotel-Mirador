@@ -8,6 +8,8 @@ from componentes_graficos.LtkEntry import LtkEntryLine
 from componentes_graficos.LtkButton import LtkButtonFill
 from util.TraducirValores import convertir_hora_a_cadena
 
+from ventanas.Formularios.habitacion_formularios.FormularioHabitacion import RegistrarHabitacion
+
 
 class FrameHabitacion(Frame):
 
@@ -57,44 +59,20 @@ class FrameHabitacion(Frame):
         self.editar_habitacion_boton.disable()
         self.editar_habitacion_boton.pack(side="right", padx=20, pady=20)
 
-        self.boton_eliminar_habitacion = LtkButtonFill(self, nombre="Eliminar Empleado",
-                                                       funcion=lambda: self.borrar_habitacion())
+        self.boton_eliminar_habitacion = LtkButtonFill(self, nombre="Eliminar Empleado",funcion=lambda: self.borrar_habitacion())
         self.boton_eliminar_habitacion.disable()
         self.boton_eliminar_habitacion.pack(side="right", padx=20, pady=20)
+
+
 
     def on_treeview_select(self, event):
         self.editar_habitacion_boton.enable()
         self.boton_eliminar_habitacion.enable()
 
     def agregar_habitacion(self):
-        print("Agregar empleado")
-        def agregar():
-            datos = [self.numero_habitacion.get_text(), self.tipo_habitacion.get_text(), self.estado_habitacion.get_text(), self.precio_por_noche.get_text()]
-            self.registrar_datos.registrar_datos(datos, 'Habitacion')
-            self.ventana.destroy()
-            self.actualizar_tabla()
-
-        self.ventana = Toplevel()
-        self.ventana.title("Agregar Habitacion")
-
-
-        self.numero_habitacion = LtkEntryLine(self.ventana, "Numero habitacion")
-        self.numero_habitacion.pack(padx=10, pady=10)
-
-        self.tipo_habitacion = LtkEntryLine(self.ventana, "Tipo habitacion")
-        self.tipo_habitacion.pack(padx=10, pady=10)
-
-        self.estado_habitacion = LtkEntryLine(self.ventana, "Estado habitacion")
-        self.estado_habitacion.pack(padx=10, pady=10)
-
-        self.precio_por_noche = LtkEntryLine(self.ventana, "Precio por noche")
-        self.precio_por_noche.pack(padx=10, pady=10)
-
-
-        self.boton_agregar = LtkButtonFill(self.ventana, nombre="Agregar Habitacion", funcion=agregar)
-        self.boton_agregar.pack(padx=10, pady=10)
-
-        self.ventana.mainloop()
+        ventana = RegistrarHabitacion()
+        
+        
 
     def actualizar_tabla(self):
         self.consultar_datos.realizar_consulta_simple('Habitacion')
