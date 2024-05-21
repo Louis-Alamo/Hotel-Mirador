@@ -8,7 +8,8 @@ class FormularioEmpleado:
     def __init__(self, callback):
 
         self.callback = callback
-        self.ventana = CTk()
+
+        self.ventana = CTkToplevel()
         self.ventana.title("Registrar Empleado")
 
         self.ventana.resizable(False, False)
@@ -19,7 +20,7 @@ class FormularioEmpleado:
 
         self.crear_formulario()
 
-        self.ventana.mainloop()
+
 
     def crear_formulario(self):
 
@@ -94,8 +95,15 @@ class FormularioEmpleado:
         self.boton_aceptar.grid(row=0, column=2, padx=10, pady=10, sticky="ew")
 
 
+    def ejecutar_ventana(self):
+        self.ventana.mainloop()
+
     def aceptar(self):
-        pass
+        self.on_close()
+
+
+    def cancelar(self):
+        self.ventana.destroy()
     
     def on_close(self):
         self.ventana.destroy()

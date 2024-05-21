@@ -10,6 +10,7 @@ from util.TraducirValores import convertir_hora_a_cadena
 from ventanas.Formularios.empleado_formularios.RegistrarEmpleado import RegistrarEmpleado
 from ventanas.Formularios.empleado_formularios.EditarEmpleado import EditarEmpleado
 import os
+import datetime
 
 
 class FrameEmpleados(Frame):
@@ -18,9 +19,6 @@ class FrameEmpleados(Frame):
 
 
         super().__init__(master, **kwargs)
-
-        dir_path = os.path.dirname(os.path.abspath(__file__))
-        print("Path de login: ", dir_path)
 
 
         self.config(bg='white', width=900, height=550)
@@ -36,8 +34,9 @@ class FrameEmpleados(Frame):
         self.etiqueta = Label(self.barra_busqueda, text="Empleados:", bg='white', font=('Poppins', 14, "bold"))
         self.etiqueta.pack(side=LEFT, padx=10, pady = 20)
 
-        self.entrada_busqueda = LtkEntryLine(self.barra_busqueda, 'Buscar por nombre')
+        self.entrada_busqueda = LtkEntryLine(self.barra_busqueda, 'Buscar por clave')
         self.entrada_busqueda.pack(side="left",padx=10, pady=20)
+        self.entrada_busqueda.bind('<Return>', lambda event: self.buscar_por_clave())
 
         self.boton_agregar = LtkButtonFill(self.barra_busqueda, nombre="Agregar Empleado",  funcion=lambda:self.agregar_empleado())
         self.boton_agregar.pack(side="right", padx=20, pady=20)
@@ -74,7 +73,9 @@ class FrameEmpleados(Frame):
         self.boton_eliminar_empleado.enable()
 
     def agregar_empleado(self):
-        registrar_empleado = RegistrarEmpleado(self.actualizar_tabla)
+        RegistrarEmpleado(self.actualizar_tabla)
+        self.actualizar_tabla()
+
 
     def actualizar_tabla(self):
         self.consultar_datos.realizar_consulta_simple('Empleado')
@@ -86,12 +87,27 @@ class FrameEmpleados(Frame):
 
     def editar_empleado(self):
         datos_empleado = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
-        editar_empleado = EditarEmpleado(datos_empleado, self.actualizar_tabla)
-  
+        EditarEmpleado(datos_empleado, self.actualizar_tabla)
+        self.actualizar_tabla()
+
+    def on_cerrar_ventana_emergente(self):
+        self.actualizar_tabla()
 
     def borrar_empleado(self):
         clave_empleado = self.tabla.obtener_datos_seleccionados()[0][0]
         self.eliminar_empleado.eliminar_registro_especifico(clave_empleado, 'Empleado', 'clave_empleado')
         self.actualizar_tabla()
+
+    def buscar_por_clave(self):
+        obj = ConsultarDatosSQL()
+        obj.realizar_consulta_con_condicion('Empleado', f"clave_empleado = '{self.entrada_busqueda.get()}'")
+        datos = obj.obtener_datos_consulta()
+        datos_lista = [[dato if not isinstance(dato, datetime.time) else dato.strftime('%H:%M') for dato in fila] for
+                       fila in datos]
+
+        datos_lista = datos_lista[0]
+        print(datos_lista)
+
+        EditarEmpleado(datos_lista, self.actualizar_tabla)
 
 

@@ -1,3 +1,4 @@
+import datetime
 from tkinter import *
 from SQL.ConsultarDatosSQL import ConsultarDatosSQL
 from SQL.RegistrarDatos import RegistrarDatos
@@ -34,6 +35,8 @@ class FrameServiciosAdicionales(Frame):
 
         self.entrada_busqueda = LtkEntryLine(self.barra_busqueda, 'Buscar por nombre')
         self.entrada_busqueda.pack(side="left",padx=10, pady=20)
+        self.entrada_busqueda.bind('<Return>', lambda event: self.buscar_por_clave())
+
 
         self.boton_agregar = LtkButtonFill(self.barra_busqueda, nombre="Agregar servicio", funcion=lambda: self.agregar())
         self.boton_agregar.pack(side="right", padx=20, pady=20)
@@ -91,4 +94,14 @@ class FrameServiciosAdicionales(Frame):
 
 
 
+    def buscar_por_clave(self):
+        obj = ConsultarDatosSQL()
+        obj.realizar_consulta_con_condicion('ServiciosAdicionales', f"clave_servicio = '{self.entrada_busqueda.get()}'")
+        datos = obj.obtener_datos_consulta()
+        datos_lista = [[dato if not isinstance(dato, datetime.time) else dato.strftime('%H:%M') for dato in fila] for
+                       fila in datos]
 
+        datos_lista = datos_lista[0]
+        print(datos_lista)
+
+        EditarServicio(datos_lista, self.actualizar_tabla)

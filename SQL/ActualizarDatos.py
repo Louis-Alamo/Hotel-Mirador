@@ -53,7 +53,6 @@ class ActualizarDatos(ConexionSQL):
 
                 # Pasamos los datos a la consulta, ignorando el primer dato (la clave)
                 self.cursor.execute(consulta_actualizacion, *(datos[1:] + [datos[0]]))
-
                 self.conexion.commit()
 
             else:

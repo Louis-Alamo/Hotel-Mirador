@@ -9,7 +9,7 @@ class FormularioServicio:
         
         self.callback = callback
 
-        self.ventana = CTk()
+        self.ventana = CTkToplevel()
         self.ventana.title("Registrar Servicio")
 
         self.ventana.resizable(False, False)
@@ -20,7 +20,6 @@ class FormularioServicio:
 
         self.crear_formulario()
 
-        self.ventana.mainloop()
 
     def crear_formulario(self):
 

@@ -12,16 +12,18 @@ class EditarServicio(FormularioServicio):
             
         def cargar_datos(self):
             self.campo_nombre_servicio.set_text(self.datos_servicio[1])
-            self.campo_costo_servicio.set_text(self.datos_servicio[2])
-            self.campo_clave_servicio.set_text(self.datos_servicio[0])
+            self.campo_costo.set_text(self.datos_servicio[2])
+            self.campo_ID.set_text(self.datos_servicio[0])
+            self.campo_descripcion.set_text(self.datos_servicio[3])
     
         def aceptar(self):
             
             try:
                 lista = [
-                    self.campo_clave_servicio.get(),
+                    self.campo_ID.get(),
                     self.campo_nombre_servicio.get(),
-                    self.campo_costo_servicio.get()
+                    self.campo_descripcion.get(),
+                    self.campo_costo.get()
                 ]
                 
                 obj = ActualizarDatos()

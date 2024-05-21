@@ -1,7 +1,7 @@
 from ventanas.Formularios.habitacion_formularios.FormularioHabitacion import FormularioHabitacion
 from SQL.ActualizarDatos import ActualizarDatos
 from tkinter import messagebox
-
+from Excepciones.NullValueException import NullValueException
 
 
 class EditarHabitacion(FormularioHabitacion):
@@ -9,10 +9,21 @@ class EditarHabitacion(FormularioHabitacion):
     def __init__(self, lista_datos, callback):
         super().__init__(callback=callback)
         self.lista_datos = lista_datos
-        print(self.lista_datos)
+
+        if self.lista_datos is None:
+            raise NullValueException("Error al cargar los datos de la habitación")
+
         self.cargar_datos()
         
-        
+    def cargar_datos(self):
+        try:
+            self.campo_clave.set_text(self.lista_datos[0])
+            self.tipo_de_habitacion.set(self.lista_datos[1])
+            self.estado_habitacion.set(self.lista_datos[2])
+            self.campo_precio.set_text(str(self.lista_datos[3]))
+        except IndexError:
+            print("Error indice fuera del rango de la estructura")
+
 
     def aceptar(self):
         try:
@@ -37,9 +48,4 @@ class EditarHabitacion(FormularioHabitacion):
     
 
     
-    def cargar_datos(self):
-        print(self.lista_datos)
-        self.campo_clave.set_text(self.lista_datos[0])
-        self.tipo_de_habitacion.set(self.lista_datos[1])
-        self.estado_habitacion.set(self.lista_datos[2])
-        self.campo_precio.set_text(str(self.lista_datos[3]))
+
