@@ -2,23 +2,26 @@ from customtkinter import *
 from componentes_graficos.LtkButton import LtkButtonFill
 from componentes_graficos.LtkEntry import LtkEntryLine
 from componentes_graficos.LtkComboBox import LtkComboBoxLine
-from SQL.RegistrarDatos import RegistrarDatos
 
-class HabitacionFormulario():
+class FormularioHabitacion():
 
-    def __init__(self):
+    def __init__(self, callback):
+        self.callback = callback
 
-        self.ventana = CTk()
-        self.ventana.title("Registrar Habitación")
+
+        self.ventana = CTkToplevel()
+        self.ventana.title("Habitación")
 
         self.ventana.resizable(False, False)
         self.ventana.grab_set()
+        self.ventana.protocol("WM_DELETE_WINDOW", self.on_close)
+
+        self.ventana.grid_columnconfigure(0, weight=1)
+        self.ventana.grid_columnconfigure(1, weight=1)
 
         self.ventana.configure(fg_color="#FFFFFF")
 
         self.crear_formulario()
-
-        self.ventana.mainloop()
         
 
     def crear_formulario(self):
@@ -61,7 +64,9 @@ class HabitacionFormulario():
 
         self.boton_aceptar = LtkButtonFill(self.frame_botones, nombre="Aceptar", funcion=lambda: self.aceptar())
         self.boton_aceptar.grid(row=0, column=2, padx=10, pady=10, sticky="ew")
-
+    
+    def ejecutar_ventana(self):
+        self.ventana.mainloop()
 
     def aceptar(self):
         self.ventana.destroy()
@@ -69,4 +74,7 @@ class HabitacionFormulario():
     def cancelar(self):
         self.ventana.destroy()
 
+    def on_close(self):
+        self.callback()
+        self.ventana.destroy()
 

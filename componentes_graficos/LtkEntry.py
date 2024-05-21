@@ -172,4 +172,16 @@ class LtkEntryLine(CTkEntry):
         Borra todo el texto en el campo de entrada.
         """
         self.delete(0,tk.END)
+        
+    def set_text(self, text):
+        """
+        Establece el texto del campo de entrada.
 
+        Parámetros
+        ----------
+        text : str
+            El texto que se establecerá en el campo de entrada.
+        """
+        self.delete(0, tk.END)
+        self.insert(0, text)
+        

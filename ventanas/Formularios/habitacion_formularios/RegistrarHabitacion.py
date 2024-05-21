@@ -1,12 +1,12 @@
-from ventanas.Formularios.habitacion_formularios.FormularioHabitacion import RegistrarHabitacion
+from ventanas.Formularios.habitacion_formularios.FormularioHabitacion import FormularioHabitacion
 from SQL.RegistrarDatos import RegistrarDatos
 
 from tkinter import messagebox
-class RegistrarHabitacion(RegistrarHabitacion):
+class RegistrarHabitacion(FormularioHabitacion):
 
-    def __init__(self):
-        super().__init__()
-
+    def __init__(self, callback):
+        super().__init__(callback=callback)
+        self.ventana.mainloop()
 
 
     def aceptar(self):
@@ -22,13 +22,14 @@ class RegistrarHabitacion(RegistrarHabitacion):
             
             obj.registrar_datos(lista, 'Habitacion')
             messagebox.showinfo("Registro exitoso", "Habitación registrada correctamente")
-            self.aceptar()
+            
+            self.on_close()
             
         except Exception as e:
             messagebox.showerror("Error", f"Error al registrar la habitación: {e}")
         
         
-    
+
         
     def validar_datos(self):
         return self.campo_clave.get_text() != "" and self.campo_precio.get_text() != ""

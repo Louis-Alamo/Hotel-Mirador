@@ -2,15 +2,19 @@ from customtkinter import *
 from componentes_graficos.LtkButton import LtkButtonFill
 from componentes_graficos.LtkEntry import LtkEntryLine
 from componentes_graficos.LtkComboBox import LtkComboBoxLine
-class RegistrarServicio:
 
-    def __init__(self):
+class FormularioServicio:
+
+    def __init__(self, callback):
+        
+        self.callback = callback
 
         self.ventana = CTk()
         self.ventana.title("Registrar Servicio")
 
         self.ventana.resizable(False, False)
         self.ventana.grab_set()
+        self.ventana.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.ventana.configure(fg_color="#FFFFFF")
 
@@ -44,14 +48,12 @@ class RegistrarServicio:
         self.etiqueta_descripcion.grid(row=4, column=0, padx=10, pady=10, sticky="w")
 
         self.campo_descripcion = LtkEntryLine(self.frame_datos_servicio, texto="Descripción")
-        self.campo_descripcion.disable()
         self.campo_descripcion.grid(row=4, column=1, padx=10, pady=10, columnspan=2, sticky="ew")
 
         self.etiqueta_costo = CTkLabel(self.frame_datos_servicio, text="Costo del Servicio: ", font=("Poppins", 12, "bold"))
         self.etiqueta_costo.grid(row=5, column=0, padx=10, pady=10, sticky="w")
 
         self.campo_costo = LtkEntryLine(self.frame_datos_servicio, texto="Costo del Servicio")
-        self.campo_costo.disable()
         self.campo_costo.grid(row=5, column=1, padx=10, pady=10, columnspan=2, sticky="ew")
 
         self.etiqueta_disponibilidad = CTkLabel(self.frame_datos_servicio, text="Disponibilidad del Servicio: ",
@@ -75,7 +77,11 @@ class RegistrarServicio:
 
     def aceptar(self):
         pass
+    
+    def on_close(self):
+        self.callback()
+        self.ventana.destroy()
 
 
-RegistrarServicio()
+
 

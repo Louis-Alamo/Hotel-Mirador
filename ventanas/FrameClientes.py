@@ -8,6 +8,9 @@ from componentes_graficos.LtkEntry import LtkEntryLine
 from componentes_graficos.LtkButton import LtkButtonFill
 from util.TraducirValores import convertir_hora_a_cadena
 
+from ventanas.Formularios.cliente_formularios.RegistrarCliente import RegistrarCliente
+from ventanas.Formularios.cliente_formularios.EditarCliente import EditarCliente
+
 
 class FrameClientes(Frame):
 
@@ -67,7 +70,7 @@ class FrameClientes(Frame):
         self.boton_eliminar.enable()
 
     def agregar(self):
-        pass
+        RegistrarCliente(self.actualizar_tabla)
 
 
     def actualizar_tabla(self):
@@ -80,10 +83,8 @@ class FrameClientes(Frame):
 
     def editar(self):
         datos_habitacion = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
+        EditarCliente( datos_habitacion,self.actualizar_tabla)
 
-
-    def borrar(self):
-        pass
 
 
 

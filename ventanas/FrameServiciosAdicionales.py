@@ -6,6 +6,8 @@ from SQL.ActualizarDatos import ActualizarDatos
 from componentes_graficos.TreeviewTable import TreeviewTable
 from componentes_graficos.LtkEntry import LtkEntryLine
 from componentes_graficos.LtkButton import LtkButtonFill
+from ventanas.Formularios.servicio_formularios.RegistrarServicio import RegistrarServicio
+from ventanas.Formularios.servicio_formularios.EditarServicio import EditarServicio
 from util.TraducirValores import convertir_hora_a_cadena
 
 
@@ -68,35 +70,7 @@ class FrameServiciosAdicionales(Frame):
         self.boton_eliminar_habitacion.enable()
 
     def agregar(self):
-        def agregar():
-            datos = [self.clave_servicio.get_text(), self.nombre_servicio.get_text(), self.descripcion.get_text(),self.costo.get_text(), self.disponibilidad.get_text()]
-            self.registrar_datos.registrar_datos(datos, 'ServiciosAdicionales')
-            self.ventana.destroy()
-            self.actualizar_tabla()
-
-        self.ventana = Toplevel()
-        self.ventana.title("Agregar Servicio")
-
-
-        self.clave_servicio = LtkEntryLine(self.ventana, "Clave")
-        self.clave_servicio.pack(padx=10, pady=10)
-
-        self.nombre_servicio = LtkEntryLine(self.ventana, "Nombre servicio")
-        self.nombre_servicio.pack(padx=10, pady=10)
-
-        self.descripcion = LtkEntryLine(self.ventana, "Descripcion")
-        self.descripcion.pack(padx=10, pady=10)
-
-        self.costo = LtkEntryLine(self.ventana, "Costo")
-        self.costo.pack(padx=10, pady=10)
-
-        self.disponibilidad = LtkEntryLine(self.ventana, "Disponibilidad")
-        self.disponibilidad.pack(padx=10, pady=10)
-
-        self.boton_agregar = LtkButtonFill(self.ventana, nombre="Agregar servicio", funcion=agregar)
-        self.boton_agregar.pack(padx=10, pady=10)
-
-        self.ventana.mainloop()
+        registrar_servicio = RegistrarServicio(self.actualizar_tabla)
 
     def actualizar_tabla(self):
         self.consultar_datos.realizar_consulta_simple('ServiciosAdicionales')
@@ -108,47 +82,7 @@ class FrameServiciosAdicionales(Frame):
 
     def editar(self):
         datos_habitacion = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
-
-        def editar():
-            datos_nuevos = [
-                self.clave_servicio.get_text() if self.clave_servicio.get_text() != "" else datos_habitacion[0],
-                self.nombre_servicio.get_text() if self.nombre_servicio.get_text() != "" else datos_habitacion[1],
-                self.descripcion.get_text() if self.descripcion.get_text() != "" else datos_habitacion[2],
-                self.costo_adicional.get_text() if self.costo_adicional.get_text() != "" else datos_habitacion[3],
-                self.disponibilidad.get_text() if self.disponibilidad.get_text() != "" else datos_habitacion[4]
-
-            ]
-
-            self.actualizar_datos.actualizar_registro_completo(datos_nuevos, 'ServiciosAdicionales')
-
-            self.ventana.destroy()
-            self.actualizar_tabla()
-
-
-        self.ventana = Toplevel()
-        self.ventana.title("Editar Empleado")
-
-        # Aquí llenamos los campos con los datos del empleado si se proporcionan
-        self.clave_servicio = LtkEntryLine(self.ventana, f"{datos_habitacion[0]}")
-        self.clave_servicio.disable()
-        self.clave_servicio.pack(padx=10, pady=10)
-
-        self.nombre_servicio = LtkEntryLine(self.ventana, f"{datos_habitacion[1]}")
-        self.nombre_servicio.pack(padx=10, pady=10)
-
-        self.descripcion = LtkEntryLine(self.ventana, f"{datos_habitacion[2]}")
-        self.descripcion.pack(padx=10, pady=10)
-
-        self.costo_adicional = LtkEntryLine(self.ventana, f"{datos_habitacion[3]}")
-        self.costo_adicional.pack(padx=10, pady=10)
-
-        self.disponibilidad = LtkEntryLine(self.ventana, f"{datos_habitacion[4]}")
-        self.disponibilidad.pack(padx=10, pady=10)
-
-        self.boton_agregar = LtkButtonFill(self.ventana, nombre="Editar servicio", funcion=lambda: editar())
-        self.boton_agregar.pack(padx=10, pady=10)
-
-        self.ventana.mainloop()
+        editar_habitacion = EditarServicio(datos_habitacion, self.actualizar_tabla)
 
     def borrar(self):
         clave_empleado = self.tabla.obtener_datos_seleccionados()[0][0]

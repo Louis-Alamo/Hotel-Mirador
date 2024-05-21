@@ -2,15 +2,18 @@ from customtkinter import *
 from componentes_graficos.LtkButton import LtkButtonFill
 from componentes_graficos.LtkEntry import LtkEntryLine
 from componentes_graficos.LtkComboBox import LtkComboBoxLine
-class RegistrarEmpleado:
 
-    def __init__(self):
+class FormularioEmpleado:
 
+    def __init__(self, callback):
+
+        self.callback = callback
         self.ventana = CTk()
         self.ventana.title("Registrar Empleado")
 
         self.ventana.resizable(False, False)
         self.ventana.grab_set()
+        self.ventana.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.ventana.configure(fg_color="#FFFFFF")
 
@@ -59,7 +62,6 @@ class RegistrarEmpleado:
         self.etiqueta_clave_empleado.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
         self.campo_clave_empleado = LtkEntryLine(self.frame_datos_negocio, texto="Clave Empleado")
-        self.campo_clave_empleado.disable()
         self.campo_clave_empleado.grid(row=1, column=1, padx=10, pady=10, columnspan=2, sticky="ew")
 
         self.etiqueta_cargo_empleado = CTkLabel(self.frame_datos_negocio, text="Clave Empleado: ", font=("Poppins", 12, "bold"))
@@ -94,8 +96,11 @@ class RegistrarEmpleado:
 
     def aceptar(self):
         pass
+    
+    def on_close(self):
+        self.ventana.destroy()
+        self.callback()
 
 
 
 
-RegistrarEmpleado()
