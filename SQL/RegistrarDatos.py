@@ -9,8 +9,8 @@ class RegistrarDatos(ConexionSQL):
 
         self.nombresTablas = {
             'Cliente': ['clave_cliente', 'nombre_completo', 'apellido_paterno', 'apellido_materno'],
-            'Telefono': ['clave_cliente', 'telefono'],
-            'CorreoElectronico': ['clave_cliente', 'correo_electronico'],
+            'Telefono': ['clave_telefono', 'telefono'],
+            'CorreoElectronico': ['clave_correo', 'correo_electronico'],
             'Habitacion': ['numero_habitacion', 'tipo_habitacion', 'estado_habitacion', 'precio_noche'],
             'DetallesHabitacion': ['clave_detalle', 'nombre_detalle'],
             'Empleado':  ['clave_empleado', 'nombre_completo', 'apellido_paterno', 'apellido_materno', 'cargo',

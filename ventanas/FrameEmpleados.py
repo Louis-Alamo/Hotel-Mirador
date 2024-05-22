@@ -127,6 +127,7 @@ class FrameEmpleados(Frame):
         try:
             obj = ConsultarDatosSQL()
             obj.realizar_consulta_con_condicion('Empleado', f"clave_empleado = '{self.entrada_busqueda.get()}'")
+
             datos = obj.obtener_datos_consulta()
 
             if datos:

@@ -6,7 +6,7 @@ class FormularioCliente:
 
     def __init__(self, callback):
         self.callback = callback
-        self.ventana = CTk()
+        self.ventana = CTkToplevel()
         self.ventana.title("Registrar Cliente")
 
         self.ventana.resizable(False, False)
@@ -93,16 +93,16 @@ class FormularioCliente:
         self.frame_botones.grid(row=2, column=0, padx=10, pady=10, columnspan=2, sticky="e")
 
 
-        self.boton_cancelar = LtkButtonFill(self.frame_botones, nombre="Cancelar", funcion=lambda: self.aceptar())
+        self.boton_cancelar = LtkButtonFill(self.frame_botones, nombre="Cancelar", funcion=lambda: self.cancelar())
         self.boton_cancelar.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
-        self.boton_aceptar = LtkButtonFill(self.frame_botones, nombre="Aceptar", funcion=lambda: self.cancelar())
+        self.boton_aceptar = LtkButtonFill(self.frame_botones, nombre="Aceptar", funcion=lambda: self.aceptar())
         self.boton_aceptar.grid(row=0, column=2, padx=10, pady=10, sticky="ew")
 
 
     def aceptar(self):
         self.ventana.destroy()
-    
+
     def cancelar(self):
         self.ventana.destroy()
 

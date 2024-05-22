@@ -14,7 +14,7 @@ class EliminarDatos(ConexionSQL):
             'CorreoElectronico': ['clave_cliente', 'correo_electronico'],
             'Habitacion': ['numero_habitacion', 'tipo_habitacion', 'estado_habitacion', 'precio_noche'],
             'DetallesHabitacion': ['clave_detalle', 'nombre_detalle'],
-            'Empleado': ['clave_empleado', 'nombre_completo', 'apellido_paterno', 'apellido_materno', 'cargo',
+            'Empleado':  ['clave_empleado', 'nombre_completo', 'apellido_paterno', 'apellido_materno', 'cargo',
                          'hora_entrada', 'hora_salida'],
             'ServiciosAdicionales': ['clave_servicio', 'nombre_servicio', 'descripcion', 'costo_adicional',
                                      'Disponibilidad'],

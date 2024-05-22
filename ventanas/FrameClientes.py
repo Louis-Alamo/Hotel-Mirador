@@ -19,7 +19,6 @@ class FrameClientes(Frame):
 
         super().__init__(master, **kwargs)
 
-
         self.config(bg='white', width=900, height=550)
 
 
@@ -71,10 +70,11 @@ class FrameClientes(Frame):
 
     def agregar(self):
         RegistrarCliente(self.actualizar_tabla)
+        self.actualizar_tabla()
 
 
     def actualizar_tabla(self):
-        self.consultar_datos.realizar_consulta_simple('ServiciosAdicionales')
+        self.consultar_datos.realizar_consulta_simple('Cliente')
         datos_raw = self.consultar_datos.obtener_datos_consulta()
 
         # Convertir los datos a una lista de listas
@@ -85,6 +85,8 @@ class FrameClientes(Frame):
         datos_habitacion = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
         EditarCliente( datos_habitacion,self.actualizar_tabla)
 
+    def borrar(self):
+        pass
 
 
 
