@@ -10,8 +10,8 @@ class EliminarDatos(ConexionSQL):
 
         self.nombresTablas = {
             'Cliente': ['clave_cliente', 'nombre_completo', 'apellido_paterno', 'apellido_materno'],
-            'Telefono': ['clave_cliente', 'telefono'],
-            'CorreoElectronico': ['clave_cliente', 'correo_electronico'],
+            'Telefono': ['clave_telefono', 'telefono'],
+            'CorreoElectronico': ['clave_correo', 'correo_electronico'],
             'Habitacion': ['numero_habitacion', 'tipo_habitacion', 'estado_habitacion', 'precio_noche'],
             'DetallesHabitacion': ['clave_detalle', 'nombre_detalle'],
             'Empleado':  ['clave_empleado', 'nombre_completo', 'apellido_paterno', 'apellido_materno', 'cargo',
@@ -19,8 +19,7 @@ class EliminarDatos(ConexionSQL):
             'ServiciosAdicionales': ['clave_servicio', 'nombre_servicio', 'descripcion', 'costo_adicional',
                                      'Disponibilidad'],
             'ClienteReserva': ['clave_cliente', 'clave_reserva'],
-            'Reserva': ['clave_reserva', 'fecha_inicio_reserva', 'fecha_finalizacion_reserva', 'estado_reserva',
-                        'numero_habitacion'],
+            'Reserva': ['clave_reserva', 'fecha_inicio_reserva', 'fecha_finalizacion_reserva', 'estado_reserva'],
             'Pagos': ['clave_pago', 'detalles_transaccion', 'Fecha_de_pago', 'hora_pago', 'metodo_pago'],
             'ReservaPagos': ['clave_reserva', 'clave_pago'],
             'ReservaServicios': ['clave_reserva', 'clave_servicio'],
@@ -33,7 +32,7 @@ class EliminarDatos(ConexionSQL):
 
         try:
             self.iniciar_conexion()
-            consulta_eliminar = f"DELETE FROM {tabla} WHERE {nombre_columna} = ?"
+            consulta_eliminar = f"DELETE FROM {tabla} WHERE {nombre_columna} = {clave_eliminar}"
             self.cursor.execute(consulta_eliminar, clave_eliminar)
 
             self.conexion.commit()

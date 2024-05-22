@@ -14,12 +14,12 @@ class EditarCliente(FormularioCliente):
 
         obj = ConsultarDatosSQL()
         obj.realizar_consulta_con_condicion('Telefono', f"clave_telefono = '{self.datos_cliente[0]}'")
-        lista_telefono = obj.obtener_datos_consulta()
+        self.lista_telefono = obj.obtener_datos_consulta()
 
         obj.realizar_consulta_con_condicion('CorreoElectronico', f"clave_correo = '{self.datos_cliente[0]}'")
-        lista_correo = obj.obtener_datos_consulta()
+        self.lista_correo = obj.obtener_datos_consulta()
 
-        self.cargar_datos(lista_telefono, lista_correo)
+        self.cargar_datos(self.lista_telefono, self.lista_correo)
         
     def cargar_datos(self, lista_telefono, lista_correo):
         self.campo_nombre_completo.set_text(self.datos_cliente[1])
@@ -46,28 +46,28 @@ class EditarCliente(FormularioCliente):
                 self.campo_apellido_materno.get()
             ]
             
-            lista_telefono = [
-                self.campo_clave_cliente.get(),
-                self.campo_telefono1.get()
-            ]
-            
-            lista_correo = [
-                self.campo_clave_cliente.get(),
-                self.campo_correo1.get()
-            ]
+
             
             obj = ActualizarDatos()
+            obj1 = ConsultarDatosSQL()
             obj.actualizar_registro_completo(lista_cliente, 'Cliente')
-            obj.actualizar_registro_completo(lista_telefono, 'Telefono')
-            obj.actualizar_registro_completo(lista_correo, 'CorreoElectronico')
+            obj1.ejecutar_consulta_otros_medios(f"UPDATE Telefono SET telefono = '{self.campo_telefono1.get()}' WHERE clave_telefono = '{self.campo_clave_cliente.get()}' AND telefono = '{self.lista_telefono[0][1]}'")
+            obj1.ejecutar_consulta_otros_medios(f"UPDATE CorreoElectronico SET correo_electronico = '{self.campo_correo1.get()}' WHERE clave_correo = '{self.campo_clave_cliente.get()}' AND correo_electronico = '{self.lista_correo[0][1]}'")
 
-            if self.campo_telefono2.get() != "":
-                obj = EliminarDatos()
-                obj.eliminar_registro_especifico(self.campo_clave_cliente.get(), 'Telefono', 'clave_telefono')
 
-            if self.campo_correo2.get() != "":
+            if self.campo_telefono2.get() == "":
                 obj = EliminarDatos()
-                obj.eliminar_registro_especifico(self.campo_clave_cliente.get(), 'CorreoElectronico', 'clave_correo')
+                obj.eliminar_registro_especifico(self.lista_telefono[1][1], 'Telefono', 'telefono')
+
+            else:
+                obj1.ejecutar_consulta_otros_medios(f"UPDATE Telefono SET telefono = '{self.campo_telefono2.get()}' WHERE clave_telefono = '{self.campo_clave_cliente.get()}' AND telefono = '{self.lista_telefono[1][1]}'")
+
+            if self.campo_correo2.get() == "":
+                obj = EliminarDatos()
+                obj.eliminar_registro_especifico(self.lista_correo[1][1], 'CorreoElectronico', 'correo_electronico')
+
+            else:
+                obj1.ejecutar_consulta_otros_medios(f"UPDATE CorreoElectronico SET correo_electronico = '{self.campo_correo2.get()}' WHERE clave_correo = '{self.campo_clave_cliente.get()}' AND correo_electronico = '{self.lista_correo[1][1]}'")
 
             messagebox.showinfo("Cliente Actualizado", "Cliente actualizado con exito")
             self.on_close()

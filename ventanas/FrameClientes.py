@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from SQL.ConsultarDatosSQL import ConsultarDatosSQL
 from SQL.RegistrarDatos import RegistrarDatos
 from SQL.EliminarDatos import EliminarDatos
@@ -34,6 +35,7 @@ class FrameClientes(Frame):
 
         self.entrada_busqueda = LtkEntryLine(self.barra_busqueda, 'Buscar')
         self.entrada_busqueda.pack(side="left",padx=10, pady=20)
+        self.entrada_busqueda.bind('<Return>', lambda event: self.buscar_por_clave())
 
         self.boton_agregar = LtkButtonFill(self.barra_busqueda, nombre="Agregar cliente", funcion=lambda: self.agregar())
         self.boton_agregar.pack(side="right", padx=20, pady=20)
@@ -86,8 +88,35 @@ class FrameClientes(Frame):
         EditarCliente( datos_habitacion,self.actualizar_tabla)
 
     def borrar(self):
-        pass
+        datos = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
+
+        respuesta = messagebox.askokcancel("Atencion", f"¿Seguro que quieres eliminar el cliente {datos[1]}?")
+
+        if respuesta:
+
+            obj = ConsultarDatosSQL()
+
+            #Primero eliminamos las instancias de otras tablas
+            obj.ejecutar_consulta_otros_medios(f"DELETE CorreoElectronico WHERE clave_correo = '{datos[0]}'")
+            obj.ejecutar_consulta_otros_medios(f"DELETE Telefono WHERE clave_telefono = '{datos[0]}'")
+            obj.ejecutar_consulta_otros_medios(f"DELETE Cliente WHERE clave_cliente = '{datos[0]}'")
+            self.actualizar_tabla()
+            messagebox.showinfo("Exito", "Se elimino el cliente")
 
 
+    def buscar_por_clave(self):
+        try:
+            obj = ConsultarDatosSQL()
+            obj.realizar_consulta_con_condicion('Cliente', f"clave_cliente = '{self.entrada_busqueda.get()}'")
 
+            datos = obj.obtener_datos_consulta()
+
+            if datos:
+                EditarCliente(datos[0], self.actualizar_tabla)
+            else:
+                messagebox.showinfo("Error", "No se encontró ningún empleado con esa clave")
+
+        except Exception as e:
+            print(e)
+            messagebox.showerror("Error", "Error al buscar empleado")
 

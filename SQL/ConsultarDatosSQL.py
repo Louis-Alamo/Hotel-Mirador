@@ -30,6 +30,19 @@ class ConsultarDatosSQL(ConexionSQL):
         finally:
             self.cerrar_conexion()
 
+    def ejecutar_consulta_otros_medios(self, query):
+        try:
+            self.iniciar_conexion()
+            self.cursor.execute(query)
+            self.cursor.commit()
+
+        except pyodbc.Error as e:
+            numero_error = e.args[0]
+            DiccionarioExcepciones.manejar_error(numero_error, e)
+
+        finally:
+            self.cerrar_conexion()
+
     def _mostrar_consulta(self, arreglo):
 
         while arreglo:
@@ -38,7 +51,4 @@ class ConsultarDatosSQL(ConexionSQL):
 
     def obtener_datos_consulta(self):
         return self.datos_consulta
-#
-# obj = ConsultarDatosSQL()
-# obj.realizar_consulta_simple('Cliente')
-# obj.realizar_consulta_con_condicion('Habitacion', 'Precio_por_Noche > 100')
+

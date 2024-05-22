@@ -8,8 +8,8 @@ class ActualizarDatos(ConexionSQL):
         super().__init__()
         self.nombresTablas = {
             'Cliente': ['clave_cliente', 'nombre_completo', 'apellido_paterno', 'apellido_materno'],
-            'Telefono': ['clave_cliente', 'telefono'],
-            'CorreoElectronico': ['clave_cliente', 'correo_electronico'],
+            'Telefono': ['clave_telefono', 'telefono'],
+            'CorreoElectronico': ['clave_correo', 'correo_electronico'],
             'Habitacion': ['numero_habitacion', 'tipo_habitacion', 'estado_habitacion', 'precio_noche'],
             'DetallesHabitacion': ['clave_detalle', 'nombre_detalle'],
             'Empleado':  ['clave_empleado', 'nombre_completo', 'apellido_paterno', 'apellido_materno', 'cargo',
@@ -65,6 +65,22 @@ class ActualizarDatos(ConexionSQL):
 
         finally:
             self.cerrar_conexion()
+
+    def actualizar_registro_especifico(self, nombre_tabla, nombre_columna_actualizar, nuevo_valor_columna_actualizar, clave_columna1, valor_clave_columna1, clave_columna2, valor_clave_columna2):
+        try:
+            self.iniciar_conexion()
+            consulta_actualizar = f"UPDATE {nombre_tabla} SET {nombre_columna_actualizar} = ? WHERE {clave_columna1} = ? AND {clave_columna2} = ?"
+            self.cursor.execute(consulta_actualizar, nuevo_valor_columna_actualizar, valor_clave_columna1, valor_clave_columna2)
+            self.conexion.commit()
+
+        except pyodbc.Error as e:
+            numero_error = e.args[0]
+            DiccionarioExcepciones.manejar_error(numero_error, e)
+
+        finally:
+            self.cerrar_conexion()
+
+
 
 
 # obj = ActualizarDatos('DESKTOP-7OM9T1J','Hotel_Mirador','Louis',"panadero123")
