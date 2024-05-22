@@ -11,12 +11,12 @@ class ConsultarDatosSQL(ConexionSQL):
         self.datos_consulta = None
 
     def realizar_consulta_simple(self, NombreTabla):
-        self._ejecutar_consulta(f"SELECT * FROM {NombreTabla}")
+        self.ejecutar_consulta(f"SELECT * FROM {NombreTabla}")
 
     def realizar_consulta_con_condicion(self, NombreTabla, condicion):
-        self._ejecutar_consulta(f"SELECT * FROM {NombreTabla} WHERE {condicion}")
+        self.ejecutar_consulta(f"SELECT * FROM {NombreTabla} WHERE {condicion}")
 
-    def _ejecutar_consulta(self, query):
+    def ejecutar_consulta(self, query):
         try:
             self.iniciar_conexion()
             self.cursor.execute(query)

@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import messagebox
+
 from SQL.ConsultarDatosSQL import ConsultarDatosSQL
 from SQL.RegistrarDatos import RegistrarDatos
 from SQL.EliminarDatos import EliminarDatos
@@ -11,6 +13,9 @@ from ventanas.Formularios.empleado_formularios.RegistrarEmpleado import Registra
 from ventanas.Formularios.empleado_formularios.EditarEmpleado import EditarEmpleado
 import os
 import datetime
+
+
+from Excepciones.NullValueException import NullValueException
 
 
 class FrameEmpleados(Frame):
@@ -73,11 +78,17 @@ class FrameEmpleados(Frame):
         self.boton_eliminar_empleado.enable()
 
     def agregar_empleado(self):
-        RegistrarEmpleado(self.actualizar_tabla)
-        self.actualizar_tabla()
+        try:
+            RegistrarEmpleado(self.actualizar_tabla)
+            self.actualizar_tabla()
+
+        except Exception as e:
+            print(e)
+            messagebox.showerror("Error", "Error al agregar empleado")
 
 
     def actualizar_tabla(self):
+
         self.consultar_datos.realizar_consulta_simple('Empleado')
         datos_raw = self.consultar_datos.obtener_datos_consulta()
 
@@ -86,28 +97,51 @@ class FrameEmpleados(Frame):
         self.tabla.actualizar_datos(datos)
 
     def editar_empleado(self):
-        datos_empleado = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
-        EditarEmpleado(datos_empleado, self.actualizar_tabla)
-        self.actualizar_tabla()
+        try:
+            datos_empleado = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
+            EditarEmpleado(datos_empleado, lambda: self.actualizar_tabla())
+            self.actualizar_tabla()
+
+        except NullValueException as e:
+            messagebox.showerror("Error", "No se ha seleccionado ningun empleado")
+
+        except Exception as e:
+            print(e)
+            messagebox.showerror("Error", "Error al editar empleado")
 
     def on_cerrar_ventana_emergente(self):
         self.actualizar_tabla()
 
     def borrar_empleado(self):
-        clave_empleado = self.tabla.obtener_datos_seleccionados()[0][0]
-        self.eliminar_empleado.eliminar_registro_especifico(clave_empleado, 'Empleado', 'clave_empleado')
-        self.actualizar_tabla()
+        try:
+
+            clave_empleado = self.tabla.obtener_datos_seleccionados()[0][0]
+            self.eliminar_empleado.eliminar_registro_especifico(clave_empleado, 'Empleado', 'clave_empleado')
+            self.actualizar_tabla()
+
+        except Exception as e:
+            print(e)
+            messagebox.showerror("Error", "Error al eliminar empleado")
 
     def buscar_por_clave(self):
-        obj = ConsultarDatosSQL()
-        obj.realizar_consulta_con_condicion('Empleado', f"clave_empleado = '{self.entrada_busqueda.get()}'")
-        datos = obj.obtener_datos_consulta()
-        datos_lista = [[dato if not isinstance(dato, datetime.time) else dato.strftime('%H:%M') for dato in fila] for
-                       fila in datos]
+        try:
+            obj = ConsultarDatosSQL()
+            obj.realizar_consulta_con_condicion('Empleado', f"clave_empleado = '{self.entrada_busqueda.get()}'")
+            datos = obj.obtener_datos_consulta()
 
-        datos_lista = datos_lista[0]
-        print(datos_lista)
+            if datos:
+                datos_lista = [[dato if not isinstance(dato, datetime.time) else dato.strftime('%H:%M') for dato in fila] for
+                               fila in datos]
 
-        EditarEmpleado(datos_lista, self.actualizar_tabla)
+                datos_lista = datos_lista[0]
+                print(datos_lista)
+
+                EditarEmpleado(datos_lista, self.actualizar_tabla)
+            else:
+                messagebox.showinfo("Error", "No se encontró ningún empleado con esa clave")
+
+        except Exception as e:
+            print(e)
+            messagebox.showerror("Error", "Error al buscar empleado")
 
 

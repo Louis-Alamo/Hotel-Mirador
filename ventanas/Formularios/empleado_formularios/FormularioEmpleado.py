@@ -88,7 +88,7 @@ class FormularioEmpleado:
         self.frame_botones.grid(row=2, column=0, padx=10, pady=10, columnspan=2, sticky="e")
 
 
-        self.boton_cancelar = LtkButtonFill(self.frame_botones, nombre="Cancelar", funcion=lambda: self.aceptar())
+        self.boton_cancelar = LtkButtonFill(self.frame_botones, nombre="Cancelar", funcion=lambda: self.cancelar())
         self.boton_cancelar.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
         self.boton_aceptar = LtkButtonFill(self.frame_botones, nombre="Aceptar", funcion=lambda: self.aceptar())
@@ -106,8 +106,9 @@ class FormularioEmpleado:
         self.ventana.destroy()
     
     def on_close(self):
-        self.ventana.destroy()
         self.callback()
+        self.ventana.destroy()
+
 
 
 

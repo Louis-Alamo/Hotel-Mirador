@@ -11,7 +11,6 @@ class EditarEmpleado(FormularioEmpleado):
             self.cargar_datos()
 
 
-
         def cargar_datos(self):
 
             self.campo_nombre_completo.set_text(self.datos_empleado[1])
@@ -27,22 +26,29 @@ class EditarEmpleado(FormularioEmpleado):
             try:
                 obj = ActualizarDatos()
                 lista = [
+                    self.campo_clave_empleado.get(),
                     self.campo_nombre_completo.get(),
                     self.campo_apellido_paterno.get(),
                     self.campo_apellido_materno.get(),
-                    self.campo_clave_empleado.get(),
                     self.cargo_empleado.get(),
                     self.horario_entrada.get(),
                     self.horario_salida.get()
                 ]
                 
-                print(lista)
                 obj.actualizar_registro_completo(lista, 'Empleado')
                 
                 messagebox.showinfo("Empleado Actualizado", "Empleado actualizado con exito")
                 
                 self.on_close()
-                
+
+            except ValueError as e:
+                messagebox.showerror("Error", "Error al actualizar empleado, valor inválido ingresado")
+
+
+            except TypeError as e:
+                messagebox.showerror("Error", "Error al actualizar empleado, tipo de dato incorrecto ingresado")
+
+
             except Exception as e:
                 print(e)
                 messagebox.showerror("Error", "Error al actualizar empleado")
