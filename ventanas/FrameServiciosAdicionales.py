@@ -10,7 +10,7 @@ from componentes_graficos.LtkButton import LtkButtonFill
 from ventanas.Formularios.servicio_formularios.RegistrarServicio import RegistrarServicio
 from ventanas.Formularios.servicio_formularios.EditarServicio import EditarServicio
 from util.TraducirValores import convertir_hora_a_cadena
-
+from tkinter import messagebox
 
 class FrameServiciosAdicionales(Frame):
 
@@ -74,6 +74,9 @@ class FrameServiciosAdicionales(Frame):
 
     def agregar(self):
         registrar_servicio = RegistrarServicio(self.actualizar_tabla)
+        self.actualizar_tabla()
+        self.editar_habitacion_boton.disable()
+        self.boton_eliminar_habitacion.disable()
 
     def actualizar_tabla(self):
         self.consultar_datos.realizar_consulta_simple('ServiciosAdicionales')
@@ -82,16 +85,33 @@ class FrameServiciosAdicionales(Frame):
         # Convertir los datos a una lista de listas
         datos = [[convertir_hora_a_cadena(dato) for dato in fila] for fila in datos_raw]
         self.tabla.actualizar_datos(datos)
+        self.editar_habitacion_boton.disable()
+        self.boton_eliminar_habitacion.disable()
 
     def editar(self):
         datos_habitacion = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas
-        editar_habitacion = EditarServicio(datos_habitacion, self.actualizar_tabla)
+
+        try:
+
+            editar_habitacion = EditarServicio(datos_habitacion, self.actualizar_tabla)
+            self.actualizar_tabla()
+            self.editar_habitacion_boton.disable()
+            self.boton_eliminar_habitacion.disable()
+
+        except Exception as e:
+            messagebox.showinfo("Atencion", "No se ha seleccionado ningún servicio adicional")
 
     def borrar(self):
         clave_empleado = self.tabla.obtener_datos_seleccionados()[0][0]
-        self.eliminar.eliminar_registro_especifico(clave_empleado, 'ServiciosAdicionales', 'clave_servicio')
-        self.actualizar_tabla()
 
+        try:
+            self.eliminar.eliminar_registro_especifico(clave_empleado, 'ServiciosAdicionales', 'clave_servicio')
+            self.actualizar_tabla()
+            self.editar_habitacion_boton.disable()
+            self.boton_eliminar_habitacion.disable()
+
+        except Exception as e:
+            messagebox.showinfo("Atencion", "No se ha seleccionado ningún servicio adicional")
 
 
     def buscar_por_clave(self):
@@ -105,3 +125,5 @@ class FrameServiciosAdicionales(Frame):
         print(datos_lista)
 
         EditarServicio(datos_lista, self.actualizar_tabla)
+        self.editar_habitacion_boton.disable()
+        self.boton_eliminar_habitacion.disable()

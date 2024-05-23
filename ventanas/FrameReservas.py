@@ -76,6 +76,8 @@ class FrameReservas(Frame):
         # Convertir los datos a una lista de listas
         datos = [[convertir_hora_a_cadena(dato) for dato in fila] for fila in datos_raw]
         self.tabla.actualizar_datos(datos)
+        self.editar_habitacion_boton.disable()
+        self.boton_eliminar_habitacion.disable()
 
     def editar(self):
         pass

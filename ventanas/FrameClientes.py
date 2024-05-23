@@ -82,6 +82,8 @@ class FrameClientes(Frame):
         # Convertir los datos a una lista de listas
         datos = [[convertir_hora_a_cadena(dato) for dato in fila] for fila in datos_raw]
         self.tabla.actualizar_datos(datos)
+        self.editar_boton.disable()
+        self.boton_eliminar.disable()
 
     def editar(self):
         datos_habitacion = self.tabla.obtener_datos_seleccionados()[0]  # Obtén la primera lista de la lista de listas

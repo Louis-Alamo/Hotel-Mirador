@@ -95,6 +95,8 @@ class FrameEmpleados(Frame):
         # Convertir los datos a una lista de listas
         datos = [[convertir_hora_a_cadena(dato) for dato in fila] for fila in datos_raw]
         self.tabla.actualizar_datos(datos)
+        self.editar_empleado_boton.disable()
+        self.boton_eliminar_empleado.disable()
 
     def editar_empleado(self):
         try:
